@@ -47,8 +47,8 @@ export function sendPosts({description, imageUrl, token }) {
 
 //страница юзера
 
-export function userPosts({token}) {
-  return fetch(postsHost + "user-posts",{
+export function userPosts({token, userId}) {
+  return fetch(postsHost + "/user-posts/" + userId,{
     method: "GET",
     headers: {
       Authorization: token,
