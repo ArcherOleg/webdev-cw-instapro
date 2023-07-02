@@ -1,6 +1,7 @@
 import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage } from "../index.js";
+import { userLike } from "../helpers.js";
 
 export function renderUserPostsPageComponent({ appEl }) {
   // TODO: реализовать рендер постов из api
@@ -10,7 +11,7 @@ export function renderUserPostsPageComponent({ appEl }) {
    * TODO: чтобы отформатировать дату создания поста в виде "19 минут назад"
    * можно использовать https://date-fns.org/v2.29.3/docs/formatDistanceToNow
    */
-  const postsHtml = posts.map((item) => {
+  const postsHtml = posts.map((item, index) => {
       return `<li class="post">
       <div class="post-header" data-user-id="${item.user.id}">
           <img src="${item.user.imageUrl}" class="post-header__user-image">
@@ -20,22 +21,22 @@ export function renderUserPostsPageComponent({ appEl }) {
         <img class="post-image" src="${item.imageUrl}">
       </div>
       <div class="post-likes">
-        <button data-post-id="${item.id}" class="like-button">
-          <img src="./assets/images/like-active.svg">
-        </button>
-        <p class="post-likes-text">
-          Нравится: <strong>${item.likes.length}</strong>
-        </p>
-      </div>
-      <p class="post-text">
-        <span class="user-name">${item.user.name}</span>
-        ${item.description}
+      <button data-post-id=${item.id} data-index='${index}' class="like-button">
+        ${ item.isLiked ? '<img src="./assets/images/like-active.svg">' : '<img src="./assets/images/like-not-active.svg">'}
+      </button>
+      <p class="post-likes-text">
+        Нравится: <strong>${item.likes.length}</strong>
       </p>
+    </div>
+    <p class="post-text">
+      <span class="user-name">${item.user.name}</span>
+      ${item.description}
+    </p>
       <p class="post-date">
         ${new Date(item.createdAt)}
       </p>
     </li>`
-  }).join();
+  }).join('');
 
   const appHtml = `
               <div class="page-container">
@@ -58,4 +59,5 @@ export function renderUserPostsPageComponent({ appEl }) {
       });
     });
   }
+  userLike(posts);
 }

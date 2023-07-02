@@ -112,3 +112,22 @@ export function uploadImage({ file }) {
   });
 }
 
+export function activeLikes({ likeId, token, activityLike }) {
+  return fetch (
+    (!activityLike ? postsHost + '/' + likeId + '/like' : postsHost + '/' + likeId + '/dislike'), {
+      method: "POST",
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((response) => {
+        if (response.status === 401) {
+          throw new Error("Нет авторизации");
+        }
+  
+        return response.json();
+      })
+      .then((data) => {
+        return data.post;
+      });
+}
