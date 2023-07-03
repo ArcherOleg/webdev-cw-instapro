@@ -1,7 +1,7 @@
 import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage } from "../index.js";
-import { userLike } from "../helpers.js";
+import { userLike, dataFormat} from "../helpers.js";
 
 export function renderUserPostsPageComponent({ appEl }) {
   // TODO: реализовать рендер постов из api
@@ -33,7 +33,7 @@ export function renderUserPostsPageComponent({ appEl }) {
       ${item.description}
     </p>
       <p class="post-date">
-        ${new Date(item.createdAt)}
+        ${dataFormat(item.createdAt)}
       </p>
     </li>`
   }).join('');
