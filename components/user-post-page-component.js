@@ -1,9 +1,9 @@
 import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage } from "../index.js";
-import { userLike, dataFormat } from "../helpers.js"
+import { userLike, dataFormat} from "../helpers.js";
 
-export function renderPostsPageComponent({ appEl }) {
+export function renderUserPostsPageComponent({ appEl }) {
   // TODO: реализовать рендер постов из api
   console.log("Актуальный список постов:", posts);
 
@@ -12,10 +12,6 @@ export function renderPostsPageComponent({ appEl }) {
    * можно использовать https://date-fns.org/v2.29.3/docs/formatDistanceToNow
    */
   const postsHtml = posts.map((item, index) => {
-    let activityLike = '';
-    if (item.isLiked) {
-      activityLike = '-active-like'
-    }
       return `<li class="post">
       <div class="post-header" data-user-id="${item.user.id}">
           <img src="${item.user.imageUrl}" class="post-header__user-image">
